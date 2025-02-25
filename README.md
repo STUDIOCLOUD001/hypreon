@@ -1,2 +1,2 @@
 # hypreon
-initiate
+/initiate
