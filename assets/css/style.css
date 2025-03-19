@@ -6,6 +6,13 @@
           font-style: normal;
         }
 
+        @font-face {
+          font-family: 'soehne-breit-kraftig';
+          src: url('../fonts/soehne-breit-kraftig.woff2') format('woff2');
+          font-weight: normal;
+          font-style: normal;
+        }
+
         body {
             margin: 0;
             padding: 0;
@@ -254,6 +261,7 @@
 
         .bottom-text {
           color: #fff;
+          font-family: 'soehne-breit-kraftig';
           font-size: 0.66rem;
           line-height: 1.6;
           text-align: center;
