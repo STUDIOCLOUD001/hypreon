@@ -2558,3 +2558,187 @@
       }
     }
   }
+
+// Mobile touch handlers 
+// Additional touch-specific variables 
+let touchStartY = 0;
+let touchStartX = 0;
+let isTouching = false;
+let touchTargetLevel = null; // renamed to avoid conflict with existing touchTarget
+let isScrolling = false;
+let touchMoveDistance = 0;
+let touchStartTime = 0;
+
+// Thresholds for gesture detection
+const SCROLL_THRESHOLD = 15;
+const TAP_TIME_THRESHOLD = 300;
+const TAP_DISTANCE_THRESHOLD = 15;
+
+// Declare missing variables
+let isMenuVisible = false; // Assuming it's initially false, adjust as needed
+let targetAngleOffset = 0;
+let animationFrameId = null;
+let animateRotation = () => {}; // Dummy function, replace with your actual function
+let targetAngleOffsetLevel3 = 0;
+
+// Helper function to check if an element is a menu item or its child
+function isMenuItemOrChild(element) {
+  if (!element) return false;
+  
+  if (element.classList && element.classList.contains('menu-item')) {
+    return true;
+  }
+  
+  let parent = element.parentElement;
+  while (parent) {
+    if (parent.classList && parent.classList.contains('menu-item')) {
+      return true;
+    }
+    parent = parent.parentElement;
+  }
+  
+  return false;
+}
+
+// Touch handler for Level 2 menu (uses your existing variables)
+function handleTouchLevel2(event) {
+  if (!isMenuVisible) return;
+  
+  const touchedElement = event.target;
+  
+  switch(event.type) {
+    case 'touchstart':
+      if (isMenuItemOrChild(touchedElement)) {
+        return; // Let menu items handle their own events
+      }
+      
+      isTouching = true;
+      isScrolling = false;
+      touchTargetLevel = 'level2';
+      touchMoveDistance = 0;
+      touchStartTime = Date.now();
+      touchStartY = event.touches[0].clientY;
+      touchStartX = event.touches[0].clientX;
+      break;
+      
+    case 'touchmove':
+      if (!isTouching || touchTargetLevel !== 'level2') return;
+      if (isMenuItemOrChild(event.target)) return;
+      
+      const currentY = event.touches[0].clientY;
+      const currentX = event.touches[0].clientX;
+      const deltaY = Math.abs(touchStartY - currentY);
+      const deltaX = Math.abs(touchStartX - currentX);
+      
+      touchMoveDistance = Math.sqrt(deltaY * deltaY + deltaX * deltaX);
+      
+      if (!isScrolling && touchMoveDistance > SCROLL_THRESHOLD) {
+        if (deltaY > deltaX) {
+          isScrolling = true;
+          event.preventDefault();
+        }
+      }
+      
+      if (isScrolling) {
+        event.preventDefault();
+        const movementDelta = touchStartY - currentY;
+        const sensitivity = 0.3;
+        targetAngleOffset += movementDelta * sensitivity; // Uses your existing variable
+        touchStartY = currentY;
+        
+        if (animationFrameId) cancelAnimationFrame(animationFrameId); // Uses your existing variable
+        animationFrameId = requestAnimationFrame(animateRotation); // Uses your existing function
+      }
+      break;
+      
+    case 'touchend':
+    case 'touchcancel':
+      if (touchTargetLevel === 'level2') {
+        isTouching = false;
+        isScrolling = false;
+        touchTargetLevel = null;
+        touchMoveDistance = 0;
+      }
+      break;
+  }
+}
+
+// Touch handler for Level 3 menu (uses your existing variables)
+function handleTouchLevel3(event) {
+  if (!isMenuVisible) return;
+  
+  const touchedElement = event.target;
+  
+  switch(event.type) {
+    case 'touchstart':
+      if (isMenuItemOrChild(touchedElement)) {
+        return; // Let menu items handle their own events
+      }
+      
+      isTouching = true;
+      isScrolling = false;
+      touchTargetLevel = 'level3';
+      touchMoveDistance = 0;
+      touchStartTime = Date.now();
+      touchStartY = event.touches[0].clientY;
+      touchStartX = event.touches[0].clientX;
+      break;
+      
+    case 'touchmove':
+      if (!isTouching || touchTargetLevel !== 'level3') return;
+      if (isMenuItemOrChild(event.target)) return;
+      
+      const currentY = event.touches[0].clientY;
+      const currentX = event.touches[0].clientX;
+      const deltaY = Math.abs(touchStartY - currentY);
+      const deltaX = Math.abs(touchStartX - currentX);
+      
+      touchMoveDistance = Math.sqrt(deltaY * deltaY + deltaX * deltaX);
+      
+      if (!isScrolling && touchMoveDistance > SCROLL_THRESHOLD) {
+        if (deltaY > deltaX) {
+          isScrolling = true;
+          event.preventDefault();
+          event.stopPropagation();
+        }
+      }
+      
+      if (isScrolling) {
+        event.preventDefault();
+        event.stopPropagation();
+        const movementDelta = touchStartY - currentY;
+        const sensitivity = 0.3;
+        targetAngleOffsetLevel3 += movementDelta * sensitivity; // Uses your existing variable
+        touchStartY = currentY;
+        
+        if (animationFrameId) cancelAnimationFrame(animationFrameId); // Uses your existing variable
+        animationFrameId = requestAnimationFrame(animateRotation); // Uses your existing function
+      }
+      break;
+      
+    case 'touchend':
+    case 'touchcancel':
+      if (touchTargetLevel === 'level3') {
+        isTouching = false;
+        isScrolling = false;
+        touchTargetLevel = null;
+        touchMoveDistance = 0;
+      }
+      break;
+  }
+}
+
+// For Level 2 menu
+const submenu = document.getElementById('submenu'); // Or however you get your submenu element
+submenu.addEventListener("touchstart", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchmove", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchend", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchcancel", handleTouchLevel2, { passive: false });
+
+// For Level 3 menu
+const submenuLevel3 = document.getElementById('submenuLevel3'); // Or however you get your submenuLevel3 element
+submenuLevel3.addEventListener("touchstart", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchmove", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchend", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchcancel", handleTouchLevel3, { passive: false });
+
