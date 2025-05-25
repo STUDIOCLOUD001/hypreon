@@ -2558,3 +2558,107 @@
       }
     }
   }
+
+// Touch event variables for tracking gestures
+let touchStartY = 0;
+let touchStartX = 0;
+let isTouching = false;
+let touchTarget = null;
+
+// Touch event handler for Level 2 menu
+function handleTouchLevel2(event) {
+  if (!isMenuVisible) return;
+  
+  switch(event.type) {
+    case 'touchstart':
+      isTouching = true;
+      touchTarget = 'level2';
+      touchStartY = event.touches[0].clientY;
+      touchStartX = event.touches[0].clientX;
+      event.preventDefault();
+      break;
+      
+    case 'touchmove':
+      if (!isTouching || touchTarget !== 'level2') return;
+      event.preventDefault();
+      
+      const currentY = event.touches[0].clientY;
+      const deltaY = touchStartY - currentY;
+      
+      // Adjust sensitivity for touch (you can modify this value)
+      const sensitivity = 0.5;
+      targetAngleOffset += deltaY * sensitivity;
+      
+      // Update the starting position for continuous movement
+      touchStartY = currentY;
+      
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(animateRotation);
+      break;
+      
+    case 'touchend':
+    case 'touchcancel':
+      if (touchTarget === 'level2') {
+        isTouching = false;
+        touchTarget = null;
+      }
+      break;
+  }
+}
+
+// Mobile Scrolling - Touch event handler for Level 3 menu
+function handleTouchLevel3(event) {
+  if (!isMenuVisible) return;
+  
+  switch(event.type) {
+    case 'touchstart':
+      isTouching = true;
+      touchTarget = 'level3';
+      touchStartY = event.touches[0].clientY;
+      touchStartX = event.touches[0].clientX;
+      event.preventDefault();
+      event.stopPropagation();
+      break;
+      
+    case 'touchmove':
+      if (!isTouching || touchTarget !== 'level3') return;
+      event.preventDefault();
+      event.stopPropagation();
+      
+      const currentY = event.touches[0].clientY;
+      const deltaY = touchStartY - currentY;
+      
+      // Adjust sensitivity for touch (you can modify this value)
+      const sensitivity = 0.5;
+      targetAngleOffsetLevel3 += deltaY * sensitivity;
+      
+      // Update the starting position for continuous movement
+      touchStartY = currentY;
+      
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      animationFrameId = requestAnimationFrame(animateRotation);
+      break;
+      
+    case 'touchend':
+    case 'touchcancel':
+      if (touchTarget === 'level3') {
+        isTouching = false;
+        touchTarget = null;
+      }
+      break;
+  }
+}
+
+// For Level 2 menu (submenu)
+submenu.addEventListener("touchstart", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchmove", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchend", handleTouchLevel2, { passive: false });
+submenu.addEventListener("touchcancel", handleTouchLevel2, { passive: false });
+
+// For Level 3 menu (submenuLevel3)
+submenuLevel3.addEventListener("touchstart", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchmove", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchend", handleTouchLevel3, { passive: false });
+submenuLevel3.addEventListener("touchcancel", handleTouchLevel3, { passive: false });
+
+
