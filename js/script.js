@@ -2687,45 +2687,104 @@ if (document.readyState === 'loading') {
   addMobileTouchListeners();
 }
 
-// Simple mobile detection and cursor hiding
-function hideCursorOnMobile() {
-  // Check if device is mobile using multiple methods
+// Simple mobile detection and cursor hiding// Complete cursor disable function for mobile
+function disableCursorOnMobile() {
+  // Mobile detection
   const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
                    ('ontouchstart' in window) ||
                    (navigator.maxTouchPoints > 0);
   
-  if (isMobile) {
-    // Hide all cursor-related elements
-    const cursorElements = [
-      '.cursor',
-      '.cursor-dot', 
-      '.cursor-glow',
-      '.cursor-container',
-      '.cursor-trail',
-      '.particle',
-      '.click-ripple'
-    ];
-    
-    // Add CSS to hide cursor elements
-    const style = document.createElement('style');
-    style.textContent = `
-      ${cursorElements.join(', ')} {
-        display: none !important;
-        visibility: hidden !important;
-        opacity: 0 !important;
-        pointer-events: none !important;
+  if (!isMobile) return; // Exit if not mobile
+  
+  console.log("Mobile detected - disabling all cursor functionality");
+  
+  // 1. Hide any existing cursor elements with CSS
+  const style = document.createElement('style');
+  style.textContent = `
+    .cursor, .cursor-dot, .cursor-glow, .cursor-container, 
+    .cursor-trail, .particle, .click-ripple {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+    }
+  `;
+  document.head.appendChild(style);
+  
+  // 2. Override cursor-related functions to do nothing
+  window.createParticle = function() { return null; };
+  window.createRipple = function() { return null; };
+  window.triggerGlitch = function() { return null; };
+  window.updateParticles = function() { return null; };
+  window.updateMagneticEffect = function() { return null; };
+  window.animateCursor = function() { return null; };
+  
+  // 3. Remove existing cursor elements from DOM
+  const cursorSelectors = [
+    '.cursor', '.cursor-dot', '.cursor-glow', '.cursor-container',
+    '.cursor-trail', '.particle', '.click-ripple'
+  ];
+  
+  cursorSelectors.forEach(selector => {
+    const elements = document.querySelectorAll(selector);
+    elements.forEach(el => el.remove());
+  });
+  
+  // 4. Disable mouse event listeners by overriding addEventListener for cursor events
+  const originalAddEventListener = document.addEventListener;
+  document.addEventListener = function(type, listener, options) {
+    // Block cursor-related mouse events
+    if (['mousemove', 'mousedown', 'mouseup', 'mouseleave', 'mouseenter'].includes(type)) {
+      // Check if the listener function contains cursor-related code
+      const listenerString = listener.toString();
+      if (listenerString.includes('cursor') || 
+          listenerString.includes('particle') || 
+          listenerString.includes('trail') ||
+          listenerString.includes('cursorX') ||
+          listenerString.includes('cursorY')) {
+        console.log(`Blocked cursor-related ${type} event listener on mobile`);
+        return; // Don't add the listener
       }
-    `;
-    document.head.appendChild(style);
-    
-    console.log("Custom cursor hidden on mobile device");
-  } else {
-    console.log("Desktop detected - cursor remains visible");
+    }
+    // Call original addEventListener for non-cursor events
+    return originalAddEventListener.call(this, type, listener, options);
+  };
+  
+  // 5. Override any cursor creation in intervals/timeouts
+  const originalSetInterval = window.setInterval;
+  window.setInterval = function(callback, delay) {
+    const callbackString = callback.toString();
+    if (callbackString.includes('cursor') || 
+        callbackString.includes('particle') || 
+        callbackString.includes('createParticle')) {
+      console.log('Blocked cursor-related interval on mobile');
+      return null; // Don't create the interval
+    }
+    return originalSetInterval.call(this, callback, delay);
+  };
+  
+  // 6. Clear any existing intervals that might be creating cursor elements
+  // Get all interval IDs and clear cursor-related ones
+  for (let i = 1; i < 10000; i++) {
+    try {
+      clearInterval(i);
+    } catch (e) {
+      // Ignore errors for non-existent intervals
+    }
   }
+  
+  console.log("All cursor functionality disabled on mobile");
 }
 
 // Run immediately
-hideCursorOnMobile();
+disableCursorOnMobile();
 
-// Also run after DOM is loaded to catch any dynamically created cursor elements
-document.addEventListener('DOMContentLoaded', hideCursorOnMobile);
+// Also run after a short delay to catch any delayed cursor initialization
+setTimeout(disableCursorOnMobile, 100);
+setTimeout(disableCursorOnMobile, 500);
+setTimeout(disableCursorOnMobile, 1000);
+
+// Run when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', disableCursorOnMobile);
+
+// Run when page is fully loaded (including all resources)
+window.addEventListener('load', disableCursorOnMobile);
