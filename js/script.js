@@ -2687,4 +2687,45 @@ if (document.readyState === 'loading') {
   addMobileTouchListeners();
 }
 
-console.log("Safe mobile touch handlers initialized");
+// Simple mobile detection and cursor hiding
+function hideCursorOnMobile() {
+  // Check if device is mobile using multiple methods
+  const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+                   ('ontouchstart' in window) ||
+                   (navigator.maxTouchPoints > 0);
+  
+  if (isMobile) {
+    // Hide all cursor-related elements
+    const cursorElements = [
+      '.cursor',
+      '.cursor-dot', 
+      '.cursor-glow',
+      '.cursor-container',
+      '.cursor-trail',
+      '.particle',
+      '.click-ripple'
+    ];
+    
+    // Add CSS to hide cursor elements
+    const style = document.createElement('style');
+    style.textContent = `
+      ${cursorElements.join(', ')} {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+      }
+    `;
+    document.head.appendChild(style);
+    
+    console.log("Custom cursor hidden on mobile device");
+  } else {
+    console.log("Desktop detected - cursor remains visible");
+  }
+}
+
+// Run immediately
+hideCursorOnMobile();
+
+// Also run after DOM is loaded to catch any dynamically created cursor elements
+document.addEventListener('DOMContentLoaded', hideCursorOnMobile);
