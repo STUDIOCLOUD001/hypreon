@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HYPREON</title>
+    <meta name="description" content="HYPREON /initiate">
+    <meta property="og:title" content="HYPREON">
+    <meta property="og:description" content="/initiate">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hypreon.com">
+    <meta name="theme-color" content="#111111">
+
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+</head>
+
+<body>
+
+    <div class="glitch-container fragmented-text" data-text="HYPREON">
+        <span class="glitch-text">HYPREON</span>
+    </div>
+
+    <div class="super-div"></div>
+
+    <div id="controls">
+    	<button id="fullscreenBtn" class="btn-fullscreen" title="Toggle Fullscreen">⤢</button>
+    </div>
+
+    <div class="container">
+           <div class="inner_container">
+
+               <div class="park_sec park_sec1">
+                   <div class="park_inside interactive" data-type="attract">
+                      <span class="img">
+                      </span>
+                       <div class="content_sec">
+                         <h2>Geogenic / Synthetic</h2>
+                         <p>Feat Coll 001</p>
+                       </div>
+                   </div>
+                   <span class="status unclassified interactive" data-type="attract">
+                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M4 6.5H3.77003L3.62037 6.6746L2.62037 7.84127L2.5 7.9817V8.16667V12.8333V13.0183L2.62037 13.1587L3.62037 14.3254L3.77003 14.5H4H12H12.23L12.3796 14.3254L13.3796 13.1587L13.5 13.0183V12.8333V8.16667V7.9817L13.3796 7.84127L12.3796 6.6746L12.23 6.5H12H4Z"/>
+                      <path d="M10.5 6V3L8 1.5L6.75 2.25"/>
+                      <path d="M6.5 10.5L9.5 10.5"/>
+                     </svg>
+                   </span>
+               </div>
+
+
+               <div class="park_sec park_sec2">
+                   <div class="park_inside interactive" data-type="repel">
+                      <span class="img">
+                      </span>
+                       <div class="content_sec">
+                           <h2>Extraction & Synthesis</h2>
+                           <p>Feat Coll 002</p>
+                       </div>
+                   </div>
+                   <span class="status classified interactive" data-type="repel">
+                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M4 6.5H3.77003L3.62037 6.6746L2.62037 7.84127L2.5 7.9817V8.16667V12.8333V13.0183L2.62037 13.1587L3.62037 14.3254L3.77003 14.5H4H12H12.23L12.3796 14.3254L13.3796 13.1587L13.5 13.0183V12.8333V8.16667V7.9817L13.3796 7.84127L12.3796 6.6746L12.23 6.5H12H4Z"/>
+                       <path d="M5.5 6V3L8 1.5L10.5 3V6"/>
+                       <path d="M8 9V12"/>
+                     </svg>
+                   </span>
+               </div>
+
+               <div class="park_sec park_sec3">
+                   <div class="park_inside interactive"  data-type="repel">
+                     <span class="img">
+                     </span>
+                       <div class="content_sec">
+                           <!--<h2>Enterprise Integration</h2>-->
+                           <h2>Territorial geospatial</h2>
+                           <p>Feat Coll 003</p>
+                       </div>
+                   </div>
+                   <span class="status classified interactive" data-type="repel">
+                     <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                       <path d="M4 6.5H3.77003L3.62037 6.6746L2.62037 7.84127L2.5 7.9817V8.16667V12.8333V13.0183L2.62037 13.1587L3.62037 14.3254L3.77003 14.5H4H12H12.23L12.3796 14.3254L13.3796 13.1587L13.5 13.0183V12.8333V8.16667V7.9817L13.3796 7.84127L12.3796 6.6746L12.23 6.5H12H4Z"/>
+                       <path d="M5.5 6V3L8 1.5L10.5 3V6"/>
+                       <path d="M8 9V12"/>
+                     </svg>
+                   </span>
+               </div>
+
+               <div class="btn_grp">
+                   <button class="btn">featured collections </button>
+               </div>
+           </div>
+       </div>
+
+
+
+       <div class="menu">
+           <div class="menu-item main-category" id="main-category">Geo. / Syn.</div>
+           <div class="submenu" id="submenu"></div>
+           <div class="submenu-level3" id="submenu-level3"></div>
+       </div>
+
+
+    <div class="footer-container" style="display: flex;">
+
+      <div class="bottom-text" id="dynamic-text">
+        Loading location and time...
+      </div>
+
+    </div>
+
+  <script src="js/script.js" defer></script>
+
+    <svg>
+      <filter id="turbulence" x="0" y="0" width="100%" height="100%">
+        <feTurbulence id="sea-filter" type="turbulence" numOctaves="4" seed="12" baseFrequency="0.3 0.8"></feTurbulence>
+        <feDisplacementMap scale="16" in="SourceGraphic"></feDisplacementMap>
+        <feColorMatrix type="matrix" values="1 2 3 4 5
+                                              0 0.7 1 0 0
+                                              0 1 0.3 0 0
+                                              0 0 0 1 0"></feColorMatrix>
+      </filter>
+
+      <animate xlink:href="#sea-filter" attributeName="baseFrequency"
+               dur="8s" keyTimes="0; 0.5; 1"
+               values="0.3 0.8; 0.4 0.6; 0.3 0.8"
+               repeatCount="indefinite"></animate>
+    </svg>
+
+    <svg>
+      <filter id="turbulence2" x="0" y="0" width="100%" height="100%">
+        <feTurbulence id="sea-filter2" numOctaves="6" seed="12" baseFrequency="0.001 0.01"></feTurbulence>
+        <feDisplacementMap scale="10" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+      <animate xlink:href="#sea-filter2" attributeName="baseFrequency" dur="40s" keyTimes="0;0.5;1" values="0.001 0.01; 0.005 0.005;0.001 0.01" repeatCount="indefinite"></animate>
+    </svg>
+
+    <svg>
+      <filter id="turbulence3" x="0" y="0" width="100%" height="100%">
+        <feTurbulence id="sea-filter3" type="turbulence" numOctaves="4" seed="12" baseFrequency="0.3 0.8"></feTurbulence>
+        <feDisplacementMap scale="3" in="SourceGraphic"></feDisplacementMap>
+
+      </filter>
+
+      <animate xlink:href="#sea-filter3" attributeName="baseFrequency"
+               dur="8s" keyTimes="0; 0.5; 1"
+               values="0.3 0.8; 0.4 0.6; 0.3 0.8"
+               repeatCount="indefinite"></animate>
+    </svg>
+
+    <svg>
+      <filter id="turbulence4" x="0" y="0" width="100%" height="100%">
+        <feTurbulence id="sea-filter4" type="turbulence" numOctaves="3" seed="8" baseFrequency="0.001 0.01"></feTurbulence>
+        <feDisplacementMap scale="1" in="SourceGraphic"></feDisplacementMap>
+      </filter>
+      <animate xlink:href="#sea-filter4" attributeName="baseFrequency" dur="10s" keyTimes="0;0.5;1" values="0.001 0.01; 0.005 0.005;0.001 0.01" repeatCount="indefinite"></animate>
+    </svg>
+
+
+
+    <div class="cursor-container">
+      <div class="cursor-glow"></div>
+      <div class="cursor"></div>
+      <div class="cursor-dot"></div>
+    </div>
+
+
+
+
+    <!-- Modal Container -->
+    <div id="modalContainer" class="modal-container" style="display: none;">
+        <div id="modalHeader" class="modal-header">
+            <span id="closeModal" class="close-btn">&times;</span>
+            <h3 id="modalTitle">Modal Title</h3>
+        </div>
+        <div id="modalContent" class="modal-content">
+            <!-- Content will be dynamically loaded here -->
+        </div>
+        <div id="resizeHandle" class="resize-handle"></div>
+    </div>
+
+
+</body>
+</html>
