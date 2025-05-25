@@ -2560,7 +2560,7 @@
   }
 
 // Touch event variables for tracking gestures
-let isTouching = false;
+
 let touchTarget = null;
 
 // Touch event handler for Level 2 menu
