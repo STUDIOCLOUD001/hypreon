@@ -2560,7 +2560,7 @@
   }
 
 // Mobile touch handlers // Mobile touch handlers // Minimal mobile touch handlers 
-// Touch state tracking 
+// Touch state tracking (minimal new variables)
 let mobileScrolling = false;
 let mobileStartY = 0;
 let mobileTarget = null;
@@ -2575,7 +2575,8 @@ function isTouchingMenuItem(element) {
 
 // Mobile touch for Level 2
 function mobileTouchLevel2(e) {
-  if (!isMenuVisible) return;
+  // Use your existing isMenuVisible variable
+  if (typeof isMenuVisible !== 'undefined' && !isMenuVisible) return;
   
   if (e.type === 'touchstart') {
     if (isTouchingMenuItem(e.target)) return;
@@ -2591,11 +2592,18 @@ function mobileTouchLevel2(e) {
     if (Math.abs(deltaY) > 10) {
       mobileScrolling = true;
       e.preventDefault();
-      targetAngleOffset += deltaY * 0.3;
+      
+      // Use your existing variables safely
+      if (typeof targetAngleOffset !== 'undefined') {
+        targetAngleOffset += deltaY * 0.3;
+      }
       mobileStartY = e.touches[0].clientY;
       
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(animateRotation);
+      // Use your existing animation function safely
+      if (typeof animationFrameId !== 'undefined' && typeof animateRotation === 'function') {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(animateRotation);
+      }
     }
   }
   
@@ -2607,7 +2615,8 @@ function mobileTouchLevel2(e) {
 
 // Mobile touch for Level 3
 function mobileTouchLevel3(e) {
-  if (!isMenuVisible) return;
+  // Use your existing isMenuVisible variable
+  if (typeof isMenuVisible !== 'undefined' && !isMenuVisible) return;
   
   if (e.type === 'touchstart') {
     if (isTouchingMenuItem(e.target)) return;
@@ -2624,11 +2633,18 @@ function mobileTouchLevel3(e) {
       mobileScrolling = true;
       e.preventDefault();
       e.stopPropagation();
-      targetAngleOffsetLevel3 += deltaY * 0.3;
+      
+      // Use your existing variables safely
+      if (typeof targetAngleOffsetLevel3 !== 'undefined') {
+        targetAngleOffsetLevel3 += deltaY * 0.3;
+      }
       mobileStartY = e.touches[0].clientY;
       
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      animationFrameId = requestAnimationFrame(animateRotation);
+      // Use your existing animation function safely
+      if (typeof animationFrameId !== 'undefined' && typeof animateRotation === 'function') {
+        if (animationFrameId) cancelAnimationFrame(animationFrameId);
+        animationFrameId = requestAnimationFrame(animateRotation);
+      }
     }
   }
   
@@ -2638,11 +2654,37 @@ function mobileTouchLevel3(e) {
   }
 }
 
-// Add touch listeners
-submenu.addEventListener("touchstart", mobileTouchLevel2, { passive: false });
-submenu.addEventListener("touchmove", mobileTouchLevel2, { passive: false });
-submenu.addEventListener("touchend", mobileTouchLevel2, { passive: false });
+// Safely add touch listeners only if elements exist
+function addMobileTouchListeners() {
+  // Check if submenu exists before adding listeners
+  const submenuElement = document.getElementById('submenu') || document.querySelector('.submenu');
+  if (submenuElement) {
+    submenuElement.addEventListener("touchstart", mobileTouchLevel2, { passive: false });
+    submenuElement.addEventListener("touchmove", mobileTouchLevel2, { passive: false });
+    submenuElement.addEventListener("touchend", mobileTouchLevel2, { passive: false });
+    console.log("Level 2 mobile touch listeners added");
+  } else {
+    console.warn("Submenu element not found");
+  }
 
-submenuLevel3.addEventListener("touchstart", mobileTouchLevel3, { passive: false });
-submenuLevel3.addEventListener("touchmove", mobileTouchLevel3, { passive: false });
-submenuLevel3.addEventListener("touchend", mobileTouchLevel3, { passive: false });
+  // Check if submenuLevel3 exists before adding listeners
+  const submenuLevel3Element = document.getElementById('submenu-level3') || document.querySelector('.submenu-level3');
+  if (submenuLevel3Element) {
+    submenuLevel3Element.addEventListener("touchstart", mobileTouchLevel3, { passive: false });
+    submenuLevel3Element.addEventListener("touchmove", mobileTouchLevel3, { passive: false });
+    submenuLevel3Element.addEventListener("touchend", mobileTouchLevel3, { passive: false });
+    console.log("Level 3 mobile touch listeners added");
+  } else {
+    console.warn("SubmenuLevel3 element not found");
+  }
+}
+
+// Add listeners when DOM is ready
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', addMobileTouchListeners);
+} else {
+  // DOM is already loaded
+  addMobileTouchListeners();
+}
+
+console.log("Safe mobile touch handlers initialized");
