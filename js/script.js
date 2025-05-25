@@ -2561,8 +2561,6 @@
 
 // Touch event variables for tracking gestures
 
-let touchTarget = null;
-
 // Touch event handler for Level 2 menu
 function handleTouchLevel2(event) {
   if (!isMenuVisible) return;
