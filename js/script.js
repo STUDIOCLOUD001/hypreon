@@ -2564,7 +2564,6 @@
 let mobileScrolling = false;
 let mobileStartY = 0;
 let mobileTarget = null;
-let animationFrameId = null; // Declare animationFrameId
 let targetAngleOffsetLevel3 = 0; // Declare targetAngleOffsetLevel3
 
 
