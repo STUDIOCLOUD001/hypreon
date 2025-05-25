@@ -133,24 +133,17 @@
                 loadingElement.style.display = "block";
                 modelElement.style.display = "block";
             } else if (resource.type === "pdf") {
-                // Try direct PDF embedding first
                 loadingElement.style.display = "block";
-                pdfElement.src = resource.src;
+                const pdfViewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(resource.src)}`;
+                pdfElement.src = pdfViewerUrl;
                 pdfElement.style.display = "block";
-
+                
                 // Handle iframe load
                 pdfElement.onload = function() {
                     loadingElement.style.display = "none";
                 };
-
-                // Handle iframe error - fallback to PDF.js
-                pdfElement.onerror = function() {
-                    console.log("Direct PDF failed, trying PDF.js...");
-                    const pdfViewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(resource.src)}`;
-                    pdfElement.src = pdfViewerUrl;
-                };
-
-                // Timeout fallback
+                
+                // Timeout fallback in case onload doesn't fire
                 setTimeout(() => {
                     loadingElement.style.display = "none";
                 }, 5000);
