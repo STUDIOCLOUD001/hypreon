@@ -134,11 +134,9 @@
                 modelElement.style.display = "block";
             } else if (resource.type === "pdf") {
                 loadingElement.style.display = "block";
-                // Add custom CSS parameters for dark theme
-                const pdfViewerUrl = `https://mozilla.github.io/pdf.js/legacy/web/viewer.html?file=${encodeURIComponent(resource.src)}#toolbar=0&navpanes=0&scrollbar=0`;
+                const pdfViewerUrl = `https://mozilla.github.io/pdf.js/legacy/web/viewer.html?file=${encodeURIComponent(resource.src)}#toolbar=0&navpanes=0&scrollbar=1&zoom=page-fit&pagemode=none`;
                 pdfElement.src = pdfViewerUrl;
                 pdfElement.style.display = "block";
-                pdfElement.style.filter = "invert(0.9) hue-rotate(180deg) brightness(0.8)";
                 
                 setTimeout(() => {
                     loadingElement.style.display = "none";
