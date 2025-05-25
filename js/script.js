@@ -2560,7 +2560,6 @@
   }
 
 // Touch event variables for tracking gestures
-let touchStartY = 0;
 let touchStartX = 0;
 let isTouching = false;
 let touchTarget = null;
