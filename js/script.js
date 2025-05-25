@@ -2564,8 +2564,6 @@
 let mobileScrolling = false;
 let mobileStartY = 0;
 let mobileTarget = null;
-let targetAngleOffsetLevel3 = 0; // Declare targetAngleOffsetLevel3
-
 
 // Helper function to check if touching a menu item
 function isTouchingMenuItem(element) {
