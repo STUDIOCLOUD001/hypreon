@@ -134,16 +134,11 @@
                 modelElement.style.display = "block";
             } else if (resource.type === "pdf") {
                 loadingElement.style.display = "block";
-                const pdfViewerUrl = `https://mozilla.github.io/pdf.js/web/viewer.html?file=${encodeURIComponent(resource.src)}`;
+                // Use older PDF.js version for better compatibility
+                const pdfViewerUrl = `https://mozilla.github.io/pdf.js/legacy/web/viewer.html?file=${encodeURIComponent(resource.src)}`;
                 pdfElement.src = pdfViewerUrl;
                 pdfElement.style.display = "block";
                 
-                // Handle iframe load
-                pdfElement.onload = function() {
-                    loadingElement.style.display = "none";
-                };
-                
-                // Timeout fallback in case onload doesn't fire
                 setTimeout(() => {
                     loadingElement.style.display = "none";
                 }, 5000);
