@@ -2575,7 +2575,6 @@ const TAP_TIME_THRESHOLD = 300;
 const TAP_DISTANCE_THRESHOLD = 15;
 
 // Declare missing variables
-let isMenuVisible = false; // Assuming it's initially false, adjust as needed
 let targetAngleOffset = 0;
 let animationFrameId = null;
 let animateRotation = () => {}; // Dummy function, replace with your actual function
