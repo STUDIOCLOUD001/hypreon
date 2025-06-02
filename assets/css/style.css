@@ -568,7 +568,7 @@ MAIN MENU
 ******************************/
       #controls {
       	position: fixed;
-      	top: 10px;
+      	top: calc(1.5em + env(safe-area-inset-top));
       	left: 10px;
       	display: flex;
       	align-items: center;
