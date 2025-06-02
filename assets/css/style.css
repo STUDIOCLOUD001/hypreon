@@ -20,7 +20,7 @@
             -ms-user-select: none;
             user-select: none;
             margin: 0;
-            padding: calc(1.5em + env(safe-area-inset-top)) 1em calc(0em + env(safe-area-inset-bottom)) 1em;
+            padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -36,7 +36,7 @@
 
         .logo-container {
             position: fixed;
-            top: 1.5rem;
+            top: calc(1.5em + env(safe-area-inset-top));
             left: 50%;
             transform: translateX(-50%);
             z-index: 1000;
