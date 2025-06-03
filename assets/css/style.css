@@ -47,7 +47,7 @@
             transition: var(--transition-all);
         }
         .cls-1 {
-            fill: #fbfbfd;
+            fill: #F3F5E8;
             transition: fill 0.3s ease;
             stroke: black;
         }
