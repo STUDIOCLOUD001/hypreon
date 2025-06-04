@@ -2788,3 +2788,31 @@ document.addEventListener('DOMContentLoaded', disableCursorOnMobile);
 
 // Run when page is fully loaded (including all resources)
 window.addEventListener('load', disableCursorOnMobile);
+
+
+// LOGO VIDEO
+// Ensure video plays on all browsers
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.main-video');
+
+    // Force play on load
+    video.play().catch(function(error) {
+        console.log('Auto-play was prevented:', error);
+    });
+
+    // Set video playback speed
+    video.playbackRate = 1; // Adjust this value as needed
+
+    // Ensure seamless looping
+    video.addEventListener('ended', function() {
+        video.currentTime = 0;
+        video.play();
+    });
+
+    // Handle visibility change to restart video when tab becomes active
+    document.addEventListener('visibilitychange', function() {
+        if (!document.hidden && video.paused) {
+            video.play();
+        }
+    });
+});
