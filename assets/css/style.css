@@ -148,6 +148,7 @@ CENTRAL GLITCHING HEADER & FOOTER
             transform: scaleX(0.4) scaleY(8);
             transition: var(--transition-all);
             filter: url("#turbulence3");
+            mix-blend-mode: color-dodge;
         }
 
         .glitch-container::before,
