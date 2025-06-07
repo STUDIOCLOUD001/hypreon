@@ -373,6 +373,9 @@ CENTRAL GLITCHING HEADER & FOOTER
             font-size: 10vw;
             transform: rotate(-90deg);
           }
+          #fullscreenBtn {
+            opacity: 0;
+          }
         }
 
 
