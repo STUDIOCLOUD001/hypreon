@@ -170,10 +170,10 @@
 
 
     const btn = document.querySelector(".btn");
-    const park_sec = document.querySelectorAll(".park_sec");
-    const parkSec1 = document.querySelector(".park_sec1");
-    const parkSec2 = document.querySelector(".park_sec2");
-    const parkSec3 = document.querySelector(".park_sec3");
+    const hy_sec = document.querySelectorAll(".hy_sec");
+    const hySec1 = document.querySelector(".hy_sec1");
+    const hySec2 = document.querySelector(".hy_sec2");
+    const hySec3 = document.querySelector(".hy_sec3");
     const menu = document.querySelector(".menu");
     let overlay;
 
@@ -237,7 +237,7 @@
 
             overlay.addEventListener("click", () => {
                 menu.classList.remove("active");
-                parkSec1.classList.remove("centered");
+                hySec1.classList.remove("centered");
                 toggleMenu(true);
                 removeFadeEffect();
                 overlay.remove();
@@ -248,8 +248,8 @@
 
     // Remove fade effect from sec2 & sec3
     function removeFadeEffect() {
-        parkSec2.classList.remove("faded");
-        parkSec3.classList.remove("faded");
+        hySec2.classList.remove("faded");
+        hySec3.classList.remove("faded");
     }
 
     // Function to toggle "Featured Collections" button
@@ -258,12 +258,12 @@
             sendFlag = 0;
             btn.classList.remove("active");
             btn.textContent = "Featured Collections";
-            park_sec.forEach(item => item.classList.remove("active"));
+            hy_sec.forEach(item => item.classList.remove("active"));
         } else {
             sendFlag = 1;
             btn.classList.add("active");
             btn.textContent = "Close Collections";
-            park_sec.forEach(item => item.classList.add("active"));
+            hy_sec.forEach(item => item.classList.add("active"));
         }
     }
 
@@ -277,7 +277,7 @@
             toggleFeaturedCollections(true);
 
             // Reset everything when button is clicked
-            parkSec1.classList.remove("centered");
+            hySec1.classList.remove("centered");
             menu.classList.remove("active");
             toggleMenu(true); // Close Level 2 menu
             removeFadeEffect(); // Make sure sec2 & sec3 are visible
@@ -290,10 +290,10 @@
         }
     });
 
-    // Click event for .park_sec1
-    parkSec1.addEventListener("click", () => {
+    // Click event for .hy_sec1
+    hySec1.addEventListener("click", () => {
         menu.classList.toggle("active");
-        parkSec1.classList.toggle("centered");
+        hySec1.classList.toggle("centered");
 
         // If "Featured Collections" is NOT active, activate it
         if (sendFlag === 0) {
@@ -306,8 +306,8 @@
             toggleMenu(false); // Ensure submenu opens
 
             // Apply fade effect to sec2 & sec3
-            parkSec2.classList.add("faded");
-            parkSec3.classList.add("faded");
+            hySec2.classList.add("faded");
+            hySec3.classList.add("faded");
         } else {
             if (overlay) {
                 overlay.remove();
@@ -2533,12 +2533,12 @@
   // Declare the variables
   //let sendFlag = 0
   //let btn
-  //let park_sec
+  //let hy_sec
 
   // Modify the toggleFeaturedCollections function to close infinite canvas when collections are closed
   function toggleFeaturedCollections(forceClose = null) {
-    if (typeof sendFlag === "undefined" || typeof btn === "undefined" || typeof park_sec === "undefined") {
-      console.error("sendFlag, btn, or park_sec is not properly initialized.")
+    if (typeof sendFlag === "undefined" || typeof btn === "undefined" || typeof hy_sec === "undefined") {
+      console.error("sendFlag, btn, or hy_sec is not properly initialized.")
       return
     }
 
@@ -2548,8 +2548,8 @@
         btn.classList.remove("active")
         btn.textContent = "Featured Collections"
       }
-      if (park_sec) {
-        park_sec.forEach((item) => item.classList.remove("active"))
+      if (hy_sec) {
+        hy_sec.forEach((item) => item.classList.remove("active"))
       }
 
       // Close infinite canvas when collections are closed
@@ -2560,8 +2560,8 @@
         btn.classList.add("active")
         btn.textContent = "Close Collections"
       }
-      if (park_sec) {
-        park_sec.forEach((item) => item.classList.add("active"))
+      if (hy_sec) {
+        hy_sec.forEach((item) => item.classList.add("active"))
       }
     }
   }
