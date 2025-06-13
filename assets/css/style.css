@@ -384,6 +384,12 @@ CENTRAL GLITCHING HEADER & FOOTER
           #fullscreenBtn {
             opacity: 0;
           }
+          .park_sec2 {
+            transform: translateY(100%) translateX(0%) scale(0.9);      
+          }
+          .park_sec3 {
+            transform: translateY(0px) translateX(0%) scale(0.85);     
+          }
         }
 
 
