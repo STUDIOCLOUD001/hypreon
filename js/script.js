@@ -57,6 +57,7 @@
             glitchContainer.classList.add('transitioned');
         }, 5000);
 
+
     //footer
     // Fetch Weather and Location
     function fetchWeatherAndLocation() {
