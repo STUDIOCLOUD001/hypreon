@@ -132,7 +132,7 @@ CENTRAL GLITCHING HEADER & FOOTER
           filter: url("#turbulence4");
           animation: glitch-anim-3 10s infinite linear alternate-reverse;
           mix-blend-mode: darken;
-          opacity: 0;
+          opacity: 0.5;
         }
 
         .glitch-container {
