@@ -1062,7 +1062,7 @@ MAIN MENU
           }
 
           .inner_container{
-              padding: 64px 16px;
+              padding: 64px 64px;
             }
           .btn_grp {
               justify-content: center;
