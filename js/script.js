@@ -51,6 +51,12 @@
 
         glitchEffect();
 
+        // Wait for 5 seconds, then transition from mid to top
+        setTimeout(() => {
+            const glitchContainer = document.querySelector('.glitch-container');
+            glitchContainer.classList.add('transitioned');
+        }, 5000);
+
     //footer
     // Fetch Weather and Location
     function fetchWeatherAndLocation() {
