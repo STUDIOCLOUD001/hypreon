@@ -61,8 +61,8 @@
             align-items: center;
             justify-content: center;
             background-color: #000000;
-            mix-blend-mode: soft-light;
-            opacity: 0.5;
+            mix-blend-mode: color-dodge;
+            opacity: 0.9;
         }
         
         .main-video {
