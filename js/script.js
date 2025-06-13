@@ -51,11 +51,11 @@
 
         glitchEffect();
 
-        // Wait for 5 seconds, then transition from mid to top
+        // Wait for 6 seconds, then transition from mid to top
         setTimeout(() => {
             const glitchContainer = document.querySelector('.glitch-container');
             glitchContainer.classList.add('transitioned');
-        }, 5000);
+        }, 6000);
 
 
     //footer
