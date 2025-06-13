@@ -138,18 +138,23 @@ CENTRAL GLITCHING HEADER & FOOTER
         .glitch-container {
             position: absolute;
             text-align: center;
-            font-size: 22px;
-            color: rgba(255, 255, 255, 1);
+            font-size: 6vw;
+            color: rgba(221, 208, 189, 1);
             text-transform: uppercase;
             letter-spacing: 0.6em;
             text-shadow: inset 0 0 0 8px rgb(221, 208, 189),
-            0 0 16px rgba(221, 208, 189, 0.2);
+                0 0 16px rgba(221, 208, 189, 0.2);
             -webkit-text-stroke: inset 2px #191919;
             paint-order: stroke fill;
             transform: scaleX(0.4) scaleY(8);
             transition: var(--transition-all);
             filter: url("#turbulence3");
             mix-blend-mode: color-dodge;
+        }
+
+        .glitch-container.transitioned {
+            font-size: 22px;
+            color: rgba(255, 255, 255, 1);
             top: 58px;
         }
 
